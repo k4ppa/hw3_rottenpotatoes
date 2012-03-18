@@ -28,18 +28,38 @@ Scenario: restrict to movies with 'PG' or 'R' ratings
   # enter step(s) to ensure that PG and R movies are visible
   # enter step(s) to ensure that other movies are not visible
   Given I am on the RottenPotatoes home page
-  When I check "ratings[PG]"
-  And I check "ratings[R]"
-  And I uncheck "ratings[PG-13]"
-  And I uncheck "ratings[G]" 
-  Then I press "Refresh"
-  And I should see "The Terminator"
+  When I check "ratings_PG"
+  And I check "ratings_R"
+  And I uncheck "ratings_PG-13"
+  And I uncheck "ratings_G" 
+  And I press "Refresh"
+  Then I should see "The Terminator"
+  And I should see "When Harry Met Sally"
+  And I should see "Amelie"
   And I should see "The Incredibles"
-  And I should not see "Chocolat"
+  And I should see "Raiders of the Lost Ark"
   And I should not see "Aladdin"
+  And I should not see "The Help"
+  And I should not see "Chocolat"
+  And I should not see "2001: A Space Odyssey"
+  And I should not see "Chicken Run"
 
 Scenario: no ratings selected
-  # see assignment
+  Given I am on the RottenPotatoes home page
+  When I uncheck the following ratings: PG, R, G, PG-13
+  And I press "Refresh"
+  Then I should not see "The Terminator"
+  And I should not see "When Harry Met Sally"
+  And I should not see "Amelie"
+  And I should not see "The Incredibles"
+  And I should not see "Raiders of the Lost Ark"
+  And I should not see "Aladdin"
+  And I should not see "The Help"
+  And I should not see "Chocolat"
+  And I should not see "2001: A Space Odyssey"
+  And I should not see "Chicken Run"
 
 Scenario: all ratings selected
-  # see assignment
+  #Given I am on the RottenPotatoes home page
+  #When I check the following ratings: "ratings[PG], ratings[R], ratings[PG-13], ratings[G]"
+  #Then I should see all of the movies
