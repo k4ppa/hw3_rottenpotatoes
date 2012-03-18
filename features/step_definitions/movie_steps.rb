@@ -15,7 +15,12 @@ end
 Then /I should see "(.*)" before "(.*)"/ do |e1, e2|
   #  ensure that that e1 occurs before e2.
   #  page.content  is the entire content of the page as a string.
-  assert false, "Unimplmemented"
+  #  assert false, "Unimplmemented"
+  re = /#{e1}.*#{e2}/m
+  #puts re.inspect
+  #puts page.source
+  #puts re.match(page.source).inspect
+  assert re.match(page.source), "Was expecting to see #{e1} before #{e2}"
 end
 
 # Make it easier to express checking or unchecking several boxes at once
@@ -36,4 +41,8 @@ Then /I should (not )?see all of the movies/ do |notsee|
   Movie.all.each do |movie|
     step %Q{I should see "#{movie.title}"}
   end
+end
+
+When /I sort movies by (.*)/ do |sort_by|
+  click_link "#{sort_by}_header"
 end
