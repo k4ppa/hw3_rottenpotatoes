@@ -32,8 +32,8 @@ When /I (un)?check the following ratings: (.*)/ do |uncheck, rating_list|
   end   
 end
 
-Then /I should (not )?see all of the movies/ do
+Then /I should (not )?see all of the movies/ do |notsee|
   Movie.all.each do |movie|
-    step %Q{I should #{notsee}see "#{movie.title}"}
+    step %Q{I should see "#{movie.title}"}
   end
 end

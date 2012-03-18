@@ -31,6 +31,7 @@ Scenario: restrict to movies with 'PG' or 'R' ratings
   When I check "ratings_PG"
   And I check "ratings_R"
   And I uncheck "ratings_PG-13"
+  And I uncheck "ratings_NC-17"
   And I uncheck "ratings_G" 
   And I press "Refresh"
   Then I should see "The Terminator"
@@ -46,7 +47,7 @@ Scenario: restrict to movies with 'PG' or 'R' ratings
 
 Scenario: no ratings selected
   Given I am on the RottenPotatoes home page
-  When I uncheck the following ratings: PG, R, G, PG-13
+  When I uncheck the following ratings: PG, R, G, PG-13, NC-17
   And I press "Refresh"
   Then I should not see "The Terminator"
   And I should not see "When Harry Met Sally"
@@ -60,6 +61,7 @@ Scenario: no ratings selected
   And I should not see "Chicken Run"
 
 Scenario: all ratings selected
-  #Given I am on the RottenPotatoes home page
-  #When I check the following ratings: "ratings[PG], ratings[R], ratings[PG-13], ratings[G]"
-  #Then I should see all of the movies
+  Given I am on the RottenPotatoes home page
+  When I check the following ratings: PG, R, G, PG-13, NC-17
+  And I press "Refresh"
+  Then I should see all of the movies
